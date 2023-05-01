@@ -113,5 +113,15 @@ app.get('/actions', async (req, res) => {
     }
 })
 
+app.get('/actions/:account', async (req, res) => {
+    try{
+        const data = await Action.find({account:req.params.account});
+        res.json(data)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
 
 app.listen(port, () => console.log(`Backend running on ${port}!`));
