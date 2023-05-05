@@ -8,7 +8,7 @@ const contracts = require('./contracts')
 const {Order, OrderStat,UserStat,Position, Action, PositionStat} = require('./models/models');      //importing models
 
 const app = express();
-const port = 3000;
+const port = 4000;
 
 app.use(cors());
 
@@ -103,6 +103,16 @@ app.get('/position_stats', async (req, res) => {
     }
 })
 
+app.get('/user_stats', async (req, res) => {
+    try{
+        const data = await UserStat.find();
+        res.json(data)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
 app.get('/actions', async (req, res) => {
     try{
         const data = await Action.find();
@@ -117,6 +127,16 @@ app.get('/actions/:account', async (req, res) => {
     try{
         const data = await Action.find({account:req.params.account});
         res.json(data)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
+app.get('/ui_version', async (req, res) => {
+    try{
+        const data = await Action.find({account:req.params.account});
+        res.send('1.4')
     }
     catch(error){
         res.status(500).json({message: error.message})
