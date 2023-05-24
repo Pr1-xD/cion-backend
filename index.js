@@ -66,7 +66,7 @@ app.get('/', (req, res) => {
 app.get('/getorders', async (req, res) => {
     try{
         const data = await Order.find();
-        res.json(data)
+        res.json(data[0])
     }
     catch(error){
         res.status(500).json({message: error.message})
